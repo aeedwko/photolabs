@@ -2,13 +2,13 @@ import React from "react";
 
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({ sampleDataForPhotoListItem }) => {
+const PhotoListItem = ({ photo }) => {
   return (
     <div>
-      <img src={sampleDataForPhotoListItem.imageSource} />
-      <img src={sampleDataForPhotoListItem.profile} />
-      <p>{sampleDataForPhotoListItem.username}</p>
-      <p>{sampleDataForPhotoListItem.location.city} {sampleDataForPhotoListItem.location.country}</p>
+      <img src={photo.imageSource} />
+      <img src={photo.profile} />
+      <p>{photo.username}</p>
+      <p>{photo.location.city} {photo.location.country}</p>
     </div>
   );
 };

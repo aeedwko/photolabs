@@ -21,7 +21,7 @@ const App = () => {
   const photos = new Array(3);
 
   const photoComponents = photos.fill().map((_, index) => (
-    <PhotoListItem key={index} photo={sampleDataForPhotoListItem} />
+    <PhotoListItem className="photo-list" key={index} photo={sampleDataForPhotoListItem} />
   ));
 
   return (

@@ -7,7 +7,8 @@ const PhotoFavButton = () => {
   const [selected, setSelected] = useState(false);
 
   const handleClick = () => {
-    setSelected(selected ? false : true);
+    // instead of a ternary operator, we can reference the previous state
+    setSelected(prevSelected => !prevSelected);
   };
   
   return (

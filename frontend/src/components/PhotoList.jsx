@@ -3,7 +3,7 @@ import React from "react";
 import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
 
-const PhotoList = ({ photos, favourites, modifyFavourites }) => {
+const PhotoList = ({ photos, favourites, modifyFavourites, toggleDisplayModal }) => {
 
   const parsedSampleData = photos.map((photo) => {
     return (
@@ -12,6 +12,7 @@ const PhotoList = ({ photos, favourites, modifyFavourites }) => {
         photo={photo}
         favourites={favourites}
         modifyFavourites={modifyFavourites}
+        toggleDisplayModal={toggleDisplayModal}
       />
     );
   });

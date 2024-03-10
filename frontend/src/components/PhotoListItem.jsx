@@ -3,12 +3,16 @@ import React from "react";
 import PhotoFavButton from "./PhotoFavButton";
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({ photo, favourites, modifyFavourites }) => {
+const PhotoListItem = ({ photo, favourites, modifyFavourites, toggleDisplayModal }) => {
+
+  const handleClick = () => {
+    toggleDisplayModal();
+  };
 
   return (
     <div className="photo-list__item">
       <PhotoFavButton photo={photo} favourites={favourites} modifyFavourites={modifyFavourites} />
-      <img className="photo-list__image" src={photo.urls.regular} />
+      <img className="photo-list__image" src={photo.urls.regular} onClick={handleClick} />
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={photo.user.profile} />
         <div className="photo-list__user-info">

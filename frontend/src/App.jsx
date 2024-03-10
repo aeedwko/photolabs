@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
@@ -10,17 +10,16 @@ import './App.scss';
 // Note: Rendering a single component to build components in isolation
 const App = () => {
 
-  // creates an EMPTY array, fill() populates array with undefined, otherwise map will skip
-  // const photos = new Array(3);
+  const [displayModal, setDisplayModal] = useState(false);
 
-  // const photoComponents = photos.fill().map((_, index) => (
-  //   <PhotoListItem className="photo-list" key={index} photo={sampleDataForPhotoListItem} />
-  // ));
-  
+  const toggleDisplayModal = (id) => {
+    setDisplayModal(displayModal => !displayModal);
+  };
+
   return (
     <div className="App">
-      <HomeRoute photos={photos} topics={topics} />
-      <PhotoDetailsModal />
+      <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal}/>
+      {displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} />}
     </div>
   );
 };

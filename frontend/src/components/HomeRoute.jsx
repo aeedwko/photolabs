@@ -8,7 +8,7 @@ import "../styles/HomeRoute.scss";
 const HomeRoute = ({ photos, topics }) => {
   const [favourite, setFavourite] = useState([]);
 
-  const addFavourite = (id) => {
+  const modifyFavourite = (id) => {
     
     setFavourite((prevFavourite) => {
       // if photo is not in the prevFavourite state
@@ -25,7 +25,7 @@ const HomeRoute = ({ photos, topics }) => {
   return (
     <div className="home-route">
       <TopNavigation topics={topics} />
-      <PhotoList photos={photos} addFavourite={addFavourite} />
+      <PhotoList photos={photos} modifyFavourite={modifyFavourite} />
     </div>
   );
 };

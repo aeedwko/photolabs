@@ -5,11 +5,11 @@ import PhotoList from "./PhotoList";
 
 import "../styles/HomeRoute.scss";
 
-const HomeRoute = () => {
+const HomeRoute = ({ photos, topics }) => {
   return (
     <div className="home-route">
-      <TopNavigation />
-      <PhotoList />
+      <TopNavigation topics={topics} />
+      <PhotoList photos={photos} />
     </div>
   );
 };

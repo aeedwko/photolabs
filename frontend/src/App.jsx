@@ -1,9 +1,8 @@
 import React from 'react';
 
-// import PhotoListItem from './components/PhotoListItem';
-import TopNavigation from 'components/TopNavigationBar';
-// import PhotoList from './components/PhotoList';
 import HomeRoute from 'components/HomeRoute';
+import photos from './mocks/photos';
+import topics from './mocks/topics';
 
 import './App.scss';
 
@@ -16,10 +15,10 @@ const App = () => {
   // const photoComponents = photos.fill().map((_, index) => (
   //   <PhotoListItem className="photo-list" key={index} photo={sampleDataForPhotoListItem} />
   // ));
-
+  
   return (
     <div className="App">
-      <HomeRoute />
+      <HomeRoute photos={photos} topics={topics} />
     </div>
   );
 };

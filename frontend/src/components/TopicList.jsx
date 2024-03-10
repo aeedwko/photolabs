@@ -21,9 +21,9 @@ const sampleDataForTopicList = [
   },
 ];
 
-const TopicList = () => {
+const TopicList = ({ topics }) => {
 
-  const parsedSampleData = sampleDataForTopicList.map((topic) => {
+  const parsedSampleData = topics.map((topic) => {
     return (
       <TopicListItem
         key={topic.id}

@@ -3,11 +3,11 @@ import React, { useCallback, useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-const PhotoFavButton = ({ photo, favourite, modifyFavourite }) => {
+const PhotoFavButton = ({ photo, favourites, modifyFavourites }) => {
   // const [selected, setSelected] = useState(false);
 
   const handleClick = () => {
-    modifyFavourite(photo.id);
+    modifyFavourites(photo.id);
 
     // setSelected(prevSelected => !prevSelected);
   };
@@ -15,7 +15,7 @@ const PhotoFavButton = ({ photo, favourite, modifyFavourite }) => {
   return (
     <div className="photo-list__fav-icon" onClick={handleClick}>
       <div className="photo-list__fav-icon-svg">
-        <FavIcon selected={favourite.includes(photo.id)} />
+        <FavIcon selected={favourites.includes(photo.id)} />
       </div>
     </div>
   );

@@ -6,28 +6,32 @@ import PhotoList from "./PhotoList";
 import "../styles/HomeRoute.scss";
 
 const HomeRoute = ({ photos, topics }) => {
-  const [favourite, setFavourite] = useState([]);
+  const [favourites, setFavourites] = useState([]);
 
-  const modifyFavourite = (id) => {
+  const modifyFavourites = (id) => {
     
-    setFavourite((prevFavourite) => {
-      // if photo is not in the prevFavourite state
-      if (!prevFavourite.includes(id)) {
-        // return new state array with the id
-        console.log([...prevFavourite, id]);
-        return [...prevFavourite, id];
-      } else {
-        // return new state array without the id
-        console.log([prevFavourite.filter((element) => element !== id)]);
-        return prevFavourite.filter((element) => element !== id);
-      }
-    });
+    // setFavourites((prevFavourites) => {
+    //   // if photo is not in the prevFavourite state
+    //   if (!prevFavourites.includes(id)) {
+    //     // return new state array with the id
+    //     console.log([...prevFavourites, id]);
+    //     return [...prevFavourites, id];
+    //   } else {
+    //     // return new state array without the id
+    //     console.log([prevFavourites.filter((element) => element !== id)]);
+    //     return prevFavourites.filter((element) => element !== id);
+    //   }
+    // });
+    
+    // if id is in favourites, then set favourites without id
+    favourites.includes(id) ? setFavourites((favourites.filter(favouriteId => favouriteId !== id))) : setFavourites([...favourites, id]);
   };
 
+  // console.log(favourites);
   return (
     <div className="home-route">
       <TopNavigation topics={topics} />
-      <PhotoList photos={photos} favourite={favourite} modifyFavourite={modifyFavourite} />
+      <PhotoList photos={photos} favourites={favourites} modifyFavourites={modifyFavourites} />
     </div>
   );
 };

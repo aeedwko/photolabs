@@ -30,7 +30,7 @@ const HomeRoute = ({ photos, topics }) => {
   // console.log(favourites);
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} favourites={favourites}/>
+      <TopNavigation topics={topics} favouritesExist={favourites.length > 0}/>
       <PhotoList photos={photos} favourites={favourites} modifyFavourites={modifyFavourites} />
     </div>
   );

@@ -14,9 +14,11 @@ const HomeRoute = ({ photos, topics }) => {
       // if photo is not in the prevFavourite state
       if (!prevFavourite.includes(id)) {
         // return new state array with the id
+        console.log([...prevFavourite, id]);
         return [...prevFavourite, id];
       } else {
         // return new state array without the id
+        console.log([prevFavourite.filter((element) => element !== id)]);
         return prevFavourite.filter((element) => element !== id);
       }
     });
@@ -25,7 +27,7 @@ const HomeRoute = ({ photos, topics }) => {
   return (
     <div className="home-route">
       <TopNavigation topics={topics} />
-      <PhotoList photos={photos} modifyFavourite={modifyFavourite} />
+      <PhotoList photos={photos} favourite={favourite} modifyFavourite={modifyFavourite} />
     </div>
   );
 };

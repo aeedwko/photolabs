@@ -3,11 +3,11 @@ import React from "react";
 import PhotoFavButton from "./PhotoFavButton";
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({ photo }) => {
+const PhotoListItem = ({ photo, addFavourite }) => {
 
   return (
     <div className="photo-list__item">
-      <PhotoFavButton />
+      <PhotoFavButton photo={photo} addFavourite={addFavourite} />
       <img className="photo-list__image" src={photo.urls.regular} />
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={photo.user.profile} />

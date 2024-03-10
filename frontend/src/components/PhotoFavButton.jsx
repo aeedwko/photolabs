@@ -3,11 +3,14 @@ import React, { useCallback, useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-const PhotoFavButton = () => {
+const PhotoFavButton = ({ photo, addFavourite }) => {
   const [selected, setSelected] = useState(false);
+
 
   const handleClick = () => {
     // instead of a ternary operator, we can reference the previous state
+    addFavourite(photo.id);
+
     setSelected(prevSelected => !prevSelected);
   };
   

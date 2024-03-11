@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PhotoList from '../components/PhotoList';
+import PhotoFavButton from '../components/PhotoFavButton';
 
 import '../styles/PhotoDetailsModal.scss';
 import closeSymbol from '../assets/closeSymbol.svg';
@@ -20,9 +21,10 @@ const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto, toggleFavourites
         <img src={closeSymbol} alt="close symbol" />
       </button>
       <div className="photo-details-modal__images">
-        <img className="photo-details-modal__image" src={selectedPhoto.urls.full} />
+        <PhotoFavButton photo={selectedPhoto} favourites={favourites} toggleFavourites={toggleFavourites}/>
+        <img className="photo-details-modal__image" src={selectedPhoto.urls.full} alt="main photo" />
         <div className="photo-details-modal__photographer-details">
-          <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} />
+          <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} alt="profile photo" />
           <div className="photo-details-modal__photographer-info">
             {selectedPhoto.user.name}
             <div className="photo-details-modal__photographer-location">
@@ -33,12 +35,12 @@ const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto, toggleFavourites
         <div className="photo-details-modal__header">
           Similar Photos
         </div>
-        <div className=".photo-details-modal__top-bar">
+        <div className="photo-details-modal__top-bar">
           <PhotoList
             photos={similarArray}
             favourites={favourites}
             toggleFavourites={toggleFavourites}
-            toggleDisplayModel={toggleDisplayModal} />
+            toggleDisplayModal={toggleDisplayModal} />
         </div>
       </div>
     </div>

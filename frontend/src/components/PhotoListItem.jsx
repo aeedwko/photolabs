@@ -6,7 +6,7 @@ import "../styles/PhotoListItem.scss";
 const PhotoListItem = ({ photo, favourites, modifyFavourites, toggleDisplayModal }) => {
 
   const handleClick = () => {
-    toggleDisplayModal();
+    toggleDisplayModal(photo.id);
   };
 
   return (

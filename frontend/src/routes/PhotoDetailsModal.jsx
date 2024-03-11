@@ -3,7 +3,9 @@ import React from 'react';
 import '../styles/PhotoDetailsModal.scss';
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const PhotoDetailsModal = ({ toggleDisplayModal }) => {
+const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto }) => {
+  
+  console.log(selectedPhoto);
   
   const handleClick = () => {
     toggleDisplayModal();

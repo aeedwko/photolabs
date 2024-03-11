@@ -11,15 +11,18 @@ import './App.scss';
 const App = () => {
 
   const [displayModal, setDisplayModal] = useState(false);
-
+  const [selectedPhoto, setSelectedPhoto] = useState({});
+  
+  // updates displayModal and selectedPhoto states
   const toggleDisplayModal = (id) => {
     setDisplayModal(displayModal => !displayModal);
+    setSelectedPhoto(photos.find((photo) => photo.id === id));
   };
 
   return (
     <div className="App">
       <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal}/>
-      {displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} />}
+      {displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} selectedPhoto={selectedPhoto} />}
     </div>
   );
 };

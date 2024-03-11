@@ -21,16 +21,16 @@ const App = () => {
   };
 
   // if id is in favourites, then set favourites without id
-  const toggleFavourites = (id) => {
+  const toggleFavourite = (id) => {
     favourites.includes(id) ? setFavourites((favourites.filter(favouriteId => favouriteId !== id))) : setFavourites([...favourites, id]);
   };
 
   console.log(photos);
-  
+
   return (
     <div className="App">
-      <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal} favourites={favourites} toggleFavourites={toggleFavourites} />
-      {displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} selectedPhoto={selectedPhoto} toggleFavourites={toggleFavourites} favourites={favourites} />}
+      <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal} favourites={favourites} toggleFavourite={toggleFavourite} />
+      {displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} selectedPhoto={selectedPhoto} toggleFavourite={toggleFavourite} favourites={favourites} />}
     </div>
   );
 };

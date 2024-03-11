@@ -6,7 +6,7 @@ import PhotoFavButton from '../components/PhotoFavButton';
 import '../styles/PhotoDetailsModal.scss';
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto, toggleFavourites, favourites }) => {
+const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto, toggleFavourite, favourites }) => {
 
   // convert similar object into an array for PhotoList
   const similarArray = Object.values(selectedPhoto.similar);
@@ -21,7 +21,7 @@ const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto, toggleFavourites
         <img src={closeSymbol} alt="close symbol" />
       </button>
       <div className="photo-details-modal__images">
-        <PhotoFavButton photo={selectedPhoto} favourites={favourites} toggleFavourites={toggleFavourites}/>
+        <PhotoFavButton photo={selectedPhoto} favourites={favourites} toggleFavourite={toggleFavourite}/>
         <img className="photo-details-modal__image" src={selectedPhoto.urls.full} alt="main photo" />
         <div className="photo-details-modal__photographer-details">
           <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} alt="profile photo" />
@@ -39,7 +39,7 @@ const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto, toggleFavourites
           <PhotoList
             photos={similarArray}
             favourites={favourites}
-            toggleFavourites={toggleFavourites}
+            toggleFavourite={toggleFavourite}
             toggleDisplayModal={toggleDisplayModal} />
         </div>
       </div>

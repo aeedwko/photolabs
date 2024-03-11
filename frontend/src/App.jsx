@@ -18,6 +18,8 @@ const App = () => {
     toggleFavourite
   } = useApplicationData();
 
+  // dispatch({type: 'FAV_PHOTO_ADDED', value: id})
+
   return (
     <div className="App">
       <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal} favourites={state.favourites} toggleFavourite={toggleFavourite} changeSelectedPhoto={changeSelectedPhoto} />

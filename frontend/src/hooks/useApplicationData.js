@@ -4,7 +4,7 @@ export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
   SELECT_PHOTO: 'SELECT_PHOTO',
-  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+  TOGGLE_PHOTO_DETAILS: 'TOGGLE_PHOTO_DETAILS'
 };
 
 const reducer = (state, action) => {
@@ -15,8 +15,8 @@ const reducer = (state, action) => {
     return { ...state, favourites: state.favourites.filter(favId => favId !== action.id) };
   case ACTIONS.SELECT_PHOTO:
     return { ...state, selectedPhoto: action.photo };
-  case ACTIONS.DISPLAY_PHOTO_DETAILS:
-    return { ...state, displayModal: true };
+  case ACTIONS.TOGGLE_PHOTO_DETAILS:
+    return { ...state, displayModal: !state.displayModal };
   default:
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
@@ -33,7 +33,7 @@ const useApplicationData = () => {
   
   // updates displayModal states
   const toggleDisplayModal = () => {
-    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS });
+    dispatch({ type: ACTIONS.TOGGLE_PHOTO_DETAILS });
   };
 
   const changeSelectedPhoto = (photo) => {

@@ -5,9 +5,10 @@ import PhotoList from '../components/PhotoList';
 import '../styles/PhotoDetailsModal.scss';
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto }) => {
-  
-  console.log(selectedPhoto);
+const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto, toggleFavourites, favourites }) => {
+
+  // convert similar object into an array for PhotoList
+  const similarArray = Object.values(selectedPhoto.similar);
 
   const handleClick = () => {
     toggleDisplayModal();
@@ -33,8 +34,11 @@ const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto }) => {
           Similar Photos
         </div>
         <div className=".photo-details-modal__top-bar">
-          {/* { photos, favourites, modifyFavourites, toggleDisplayModal } */}
-          {/* <PhotoList photos={selectedPhoto.similar} /> */}
+          <PhotoList
+            photos={similarArray}
+            favourites={favourites}
+            toggleFavourites={toggleFavourites}
+            toggleDisplayModel={toggleDisplayModal} />
         </div>
       </div>
     </div>

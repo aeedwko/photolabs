@@ -12,6 +12,7 @@ const App = () => {
 
   const [displayModal, setDisplayModal] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState({});
+  const [favourites, setFavourites] = useState([]);
   
   // updates displayModal and selectedPhoto states
   const toggleDisplayModal = (id) => {
@@ -19,10 +20,17 @@ const App = () => {
     setSelectedPhoto(photos.find((photo) => photo.id === id));
   };
 
+  // if id is in favourites, then set favourites without id
+  const toggleFavourites = (id) => {
+    favourites.includes(id) ? setFavourites((favourites.filter(favouriteId => favouriteId !== id))) : setFavourites([...favourites, id]);
+  };
+
+  console.log(photos);
+  
   return (
     <div className="App">
-      <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal} />
-      {displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} selectedPhoto={selectedPhoto} />}
+      <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal} favourites={favourites} toggleFavourites={toggleFavourites} />
+      {displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} selectedPhoto={selectedPhoto} toggleFavourites={toggleFavourites} favourites={favourites} />}
     </div>
   );
 };

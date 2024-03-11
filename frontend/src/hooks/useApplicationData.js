@@ -3,8 +3,6 @@ import { useState, useReducer } from 'react';
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
-  // SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  // SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
 };
@@ -35,26 +33,19 @@ const useApplicationData = () => {
   
   // updates displayModal states
   const toggleDisplayModal = () => {
-    dispatch({ type: 'DISPLAY_PHOTO_DETAILS' });
-    // setState(prevState => ({ ...prevState, displayModal: !prevState.displayModal}));
+    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS });
   };
 
   const changeSelectedPhoto = (photo) => {
-    dispatch({ type: 'SELECT_PHOTO', photo });
-    // setState(prevState => ({ ...prevState, selectedPhoto: photo }));
+    dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
   };
   
   // if id is in favourites, then set favourites without id
   const toggleFavourite = (id) => {
     if (state.favourites.includes(id)) {
-      
-      dispatch({ type: 'FAV_PHOTO_REMOVED', id });
-      // setState(prevState => ({ ...prevState,
-      //   favourites: prevState.favourites.filter(favId => favId !== id) }));
+      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, id });
     } else {
-      dispatch({ type: 'FAV_PHOTO_ADDED', id});
-      // setState(prevState => ({ ...prevState,
-      //   favourites: [...prevState.favourites, id] }));
+      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, id});
     }
   };
 

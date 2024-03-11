@@ -10,6 +10,10 @@ const useApplicationData = () => {
     setDisplayModal(displayModal => !displayModal);
     setSelectedPhoto(photo);
   };
+
+  const changeSelectedPhoto = (photo) => {
+    setSelectedPhoto(photo);
+  };
   
   // if id is in favourites, then set favourites without id
   const toggleFavourite = (id) => {
@@ -21,6 +25,7 @@ const useApplicationData = () => {
     selectedPhoto,
     favourites,
     toggleDisplayModal,
+    changeSelectedPhoto,
     toggleFavourite
   };
 };

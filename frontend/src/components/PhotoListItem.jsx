@@ -3,10 +3,11 @@ import React from "react";
 import PhotoFavButton from "./PhotoFavButton";
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({ photo, favourites, toggleFavourite, toggleDisplayModal }) => {
+const PhotoListItem = ({ photo, favourites, toggleFavourite, toggleDisplayModal, changeSelectedPhoto }) => {
 
   const handleClick = () => {
     toggleDisplayModal(photo);
+    changeSelectedPhoto(photo);
   };
 
   return (

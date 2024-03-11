@@ -10,10 +10,9 @@ import './App.scss';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
+
   const {
-    displayModal,
-    selectedPhoto,
-    favourites,
+    state,
     toggleDisplayModal,
     changeSelectedPhoto,
     toggleFavourite
@@ -21,8 +20,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal} favourites={favourites} toggleFavourite={toggleFavourite} changeSelectedPhoto={changeSelectedPhoto} />
-      {displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} selectedPhoto={selectedPhoto} toggleFavourite={toggleFavourite} favourites={favourites} />}
+      <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal} favourites={state.favourites} toggleFavourite={toggleFavourite} changeSelectedPhoto={changeSelectedPhoto} />
+      {state.displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} selectedPhoto={state.selectedPhoto} toggleFavourite={toggleFavourite} favourites={state.favourites} />}
     </div>
   );
 };

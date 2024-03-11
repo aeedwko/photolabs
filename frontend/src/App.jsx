@@ -4,28 +4,19 @@ import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import photos from './mocks/photos';
 import topics from './mocks/topics';
+import useApplicationData from "hooks/useApplicationData";
 
 import './App.scss';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-
-  const [displayModal, setDisplayModal] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState({});
-  const [favourites, setFavourites] = useState([]);
-  
-  // updates displayModal and selectedPhoto states
-  const toggleDisplayModal = (id) => {
-    setDisplayModal(displayModal => !displayModal);
-    setSelectedPhoto(photos.find((photo) => photo.id === id));
-  };
-
-  // if id is in favourites, then set favourites without id
-  const toggleFavourite = (id) => {
-    favourites.includes(id) ? setFavourites((favourites.filter(favouriteId => favouriteId !== id))) : setFavourites([...favourites, id]);
-  };
-
-  console.log(photos);
+  const {
+    displayModal,
+    selectedPhoto,
+    favourites,
+    toggleDisplayModal,
+    toggleFavourite
+  } = useApplicationData();
 
   return (
     <div className="App">

@@ -9,7 +9,7 @@ import closeSymbol from '../assets/closeSymbol.svg';
 const PhotoDetailsModal = ({ toggleDisplayModal, selectedPhoto, toggleFavourite, favourites }) => {
 
   // convert similar object into an array for PhotoList
-  const similarArray = Object.values(selectedPhoto.similar);
+  const similarArray = Object.values(selectedPhoto.similar_photos);
 
   const handleClick = () => {
     toggleDisplayModal();

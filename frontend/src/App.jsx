@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
-import photos from './mocks/photos';
-import topics from './mocks/topics';
 import useApplicationData from "hooks/useApplicationData";
 
 import './App.scss';
@@ -22,7 +20,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <HomeRoute photos={photos} topics={topics} toggleDisplayModal={toggleDisplayModal} favourites={state.favourites} toggleFavourite={toggleFavourite} changeSelectedPhoto={changeSelectedPhoto} />
+      <HomeRoute photos={state.photoData} topics={state.topicData} toggleDisplayModal={toggleDisplayModal} favourites={state.favourites} toggleFavourite={toggleFavourite} changeSelectedPhoto={changeSelectedPhoto} />
       {state.displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} selectedPhoto={state.selectedPhoto} toggleFavourite={toggleFavourite} favourites={state.favourites} />}
     </div>
   );

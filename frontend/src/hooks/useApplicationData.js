@@ -6,7 +6,8 @@ export const ACTIONS = {
   SELECT_PHOTO: 'SELECT_PHOTO',
   TOGGLE_PHOTO_DETAILS: 'TOGGLE_PHOTO_DETAILS',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  SET_TOPIC_DATA: 'SET_TOPIC_DATA'
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  GET_PHOTOS_BY_TOPICS: "GET_PHOTO_BY_TOPICS"
 };
 
 const reducer = (state, action) => {
@@ -23,6 +24,8 @@ const reducer = (state, action) => {
     return { ...state, photoData: action.payload };
   case ACTIONS.SET_TOPIC_DATA:
     return { ...state, topicData: action.payload };
+  case ACTIONS.GET_PHOTOS_BY_TOPICS:
+    return { ...state, selectedTopic: action.id };
   default:
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
@@ -34,6 +37,7 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, {
     displayModal: false,
     selectedPhoto: {},
+    selectedTopic: 0,
     favourites: [],
     photoData: [],
     topicData: []
@@ -57,6 +61,10 @@ const useApplicationData = () => {
     }
   };
 
+  const changeTopic = (id) => {
+    dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, id });
+  };
+
   useEffect(() => {
     fetch('/api/photos')
       .then(res => res.json())
@@ -69,11 +77,21 @@ const useApplicationData = () => {
       .then(data => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }));
   }, []);
 
+  // fetch photos based on topic
+  useEffect(() => {
+    if (state.selectedTopic) {
+      fetch(`/api/topics/photos/${state.selectedTopic}`)
+        .then(res => res.json())
+        .then(data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }));
+    }
+  }, [state.selectedTopic]);
+
   return {
     state,
     toggleDisplayModal,
     changeSelectedPhoto,
-    toggleFavourite
+    toggleFavourite,
+    changeTopic
   };
 };
 

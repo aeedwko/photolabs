@@ -5,17 +5,17 @@ import PhotoList from "../components/PhotoList";
 
 import "../styles/HomeRoute.scss";
 
-const HomeRoute = ({ photos, topics, openDisplayModal, favourites, toggleFavourite, selectPhoto, selectTopic }) => {
-  
+const HomeRoute = ({ photos, topics, selectPhoto, selectTopic, openDisplayModal, favourites, toggleFavourite }) => {
+
   return (
     <div className="home-route">
-      <TopNavigationBar topics={topics} favouritesExist={favourites.length > 0} selectTopic={selectTopic} />
+      <TopNavigationBar topics={topics} selectTopic={selectTopic} favouritesExist={favourites.length > 0} />
       <PhotoList
         photos={photos}
-        favourites={favourites}
-        toggleFavourite={toggleFavourite}
+        selectPhoto={selectPhoto}
         openDisplayModal={openDisplayModal}
-        selectPhoto={selectPhoto} />
+        favourites={favourites}
+        toggleFavourite={toggleFavourite} />
     </div>
   );
 };

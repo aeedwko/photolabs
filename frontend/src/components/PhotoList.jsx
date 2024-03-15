@@ -3,24 +3,23 @@ import React from "react";
 import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
 
-const PhotoList = ({ photos, favourites, toggleFavourite, openDisplayModal, selectPhoto }) => {
+const PhotoList = ({ photos, selectPhoto, openDisplayModal, favourites, toggleFavourite }) => {
 
-  const parsedSampleData = photos.map((photo) => {
+  const photoListItems = photos.map((photo) => {
     return (
       <PhotoListItem
         key={photo.id}
         photo={photo}
-        favourites={favourites}
-        toggleFavourite={toggleFavourite}
-        openDisplayModal={openDisplayModal}
         selectPhoto={selectPhoto}
-      />
+        openDisplayModal={openDisplayModal}
+        favourites={favourites}
+        toggleFavourite={toggleFavourite} />
     );
   });
 
   return (
     <ul className="photo-list">
-      {parsedSampleData}
+      {photoListItems}
     </ul>
   );
 };

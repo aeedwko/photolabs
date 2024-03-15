@@ -3,7 +3,7 @@ import React from "react";
 import PhotoFavButton from "./PhotoFavButton";
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({ photo, favourites, toggleFavourite, openDisplayModal, selectPhoto }) => {
+const PhotoListItem = ({ photo, selectPhoto, openDisplayModal, favourites, toggleFavourite }) => {
 
   const handleClick = () => {
     openDisplayModal();

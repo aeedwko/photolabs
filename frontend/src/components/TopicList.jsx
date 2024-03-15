@@ -4,8 +4,8 @@ import TopicListItem from "./TopicListItem";
 import "../styles/TopicList.scss";
 
 const TopicList = ({ topics, selectTopic }) => {
-  console.log(selectTopic);
-  const parsedSampleData = topics.map((topic) => {
+
+  const topicListItems = topics.map((topic) => {
     return (
       <TopicListItem
         key={topic.id}
@@ -17,7 +17,7 @@ const TopicList = ({ topics, selectTopic }) => {
 
   return (
     <div className="top-nav-bar__topic-list">
-      {parsedSampleData}
+      {topicListItems}
     </div>
   );
 };

@@ -12,10 +12,10 @@ const App = () => {
   const {
     state,
     selectPhoto,
-    toggleFavourite,
     selectTopic,
     openDisplayModal,
-    closeDisplayModal
+    closeDisplayModal,
+    toggleFavourite
   } = useApplicationData();
   
   return (
@@ -23,19 +23,19 @@ const App = () => {
       <HomeRoute
         photos={state.photoData}
         topics={state.topicData}
+        selectPhoto={selectPhoto}
+        selectTopic={selectTopic}
         openDisplayModal={openDisplayModal}
         favourites={state.favourites}
-        toggleFavourite={toggleFavourite}
-        selectPhoto={selectPhoto}
-        selectTopic={selectTopic} />
+        toggleFavourite={toggleFavourite} />
       {state.displayModal && <PhotoDetailsModal
-        photo={state.photoData}
-        openDisplayModal={openDisplayModal}
+        // photo={state.photoData}
         selectedPhoto={state.selectedPhoto}
-        toggleFavourite={toggleFavourite}
-        favourites={state.favourites}
         selectPhoto={selectPhoto}
-        closeDisplayModal={closeDisplayModal} />}
+        openDisplayModal={openDisplayModal}
+        closeDisplayModal={closeDisplayModal}
+        favourites={state.favourites}
+        toggleFavourite={toggleFavourite} />}
     </div>
   );
 };

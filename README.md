@@ -1,7 +1,9 @@
-# react-photolabs
-The PhotoLabs project for the Web Development React course programming.
-
 # Photolabs
+
+A React single-based application for viewing stock photos.
+
+!["Photolabs"](https://github.com/aeedwko/photolabs/blob/main/docs/photos-favourited.png)
+!["Photo details"](https://github.com/aeedwko/photolabs/blob/main/docs/photo-details.png)
 
 ## Setup
 

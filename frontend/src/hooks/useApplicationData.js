@@ -3,13 +3,13 @@ import { useEffect, useReducer } from 'react';
 export const ACTIONS = {
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
-  FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
   SELECT_PHOTO: 'SELECT_PHOTO',
   GET_PHOTOS_BY_TOPICS: "GET_PHOTOS_BY_TOPICS",
-  PARSE_SIMILAR_PHOTO_DATA: "PARSE_SIMILAR_PHOTO_DATA",
   OPEN_PHOTO_DETAILS: 'OPEN_PHOTO_DETAILS',
-  CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS'
+  CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS',
+  FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
+  FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
+  PARSE_SIMILAR_PHOTO_DATA: "PARSE_SIMILAR_PHOTO_DATA",
 };
 
 const reducer = (state, action) => {
@@ -18,20 +18,20 @@ const reducer = (state, action) => {
     return { ...state, photoData: action.payload };
   case ACTIONS.SET_TOPIC_DATA:
     return { ...state, topicData: action.payload };
-  case ACTIONS.FAV_PHOTO_ADDED:
-    return { ...state, favourites: [...state.favourites, action.id] };
-  case ACTIONS.FAV_PHOTO_REMOVED:
-    return { ...state, favourites: state.favourites.filter(favId => favId !== action.id) };
   case ACTIONS.SELECT_PHOTO:
-    return { ...state, selectedPhoto: action.photo };
+    return { ...state, selectedPhoto: action.payload };
   case ACTIONS.GET_PHOTOS_BY_TOPICS:
-    return { ...state, selectedTopic: action.id };
-  case ACTIONS.PARSE_SIMILAR_PHOTO_DATA:
-    return { ...state, selectedPhoto: { ...state.selectedPhoto, "similar_photos": action.payload } };
+    return { ...state, selectedTopic: action.payload };
   case ACTIONS.OPEN_PHOTO_DETAILS:
     return { ...state, displayModal: true };
   case ACTIONS.CLOSE_PHOTO_DETAILS:
     return { ...state, displayModal: false };
+  case ACTIONS.FAV_PHOTO_ADDED:
+    return { ...state, favourites: [...state.favourites, action.payload] };
+  case ACTIONS.FAV_PHOTO_REMOVED:
+    return { ...state, favourites: state.favourites.filter(favId => favId !== action.payload) };
+  case ACTIONS.PARSE_SIMILAR_PHOTO_DATA:
+    return { ...state, selectedPhoto: { ...state.selectedPhoto, "similar_photos": action.payload } };
   default:
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
@@ -39,14 +39,15 @@ const reducer = (state, action) => {
   }
 };
 
+// initial state
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, {
-    displayModal: false,
-    selectedPhoto: {},
-    selectedTopic: 0,
-    favourites: [],
     photoData: [],
     topicData: [],
+    selectedPhoto: {},
+    selectedTopic: 0,
+    displayModal: false,
+    favourites: []
   });
 
   const openDisplayModal = () => {
@@ -58,28 +59,26 @@ const useApplicationData = () => {
   };
 
   const selectPhoto = (photo) => {
-    dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
   };
   
-  // if id is in favourites, then set favourites without id
-  const toggleFavourite = (id) => {
-    if (state.favourites.includes(id)) {
-      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, id });
-    } else {
-      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, id});
-    }
-  };
-
   const selectTopic = (id) => {
-    dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, id });
+    dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: id });
   };
 
+  // if id is in favourites, then update favourites without that id
+  const toggleFavourite = (id) => {
+    state.favourites.includes(id) ? dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: id }) : dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: id });
+  };
+
+  // fetch data from photos
   useEffect(() => {
     fetch('/api/photos')
       .then(res => res.json())
       .then(data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }));
   }, []);
 
+  // fetch data from topics
   useEffect(() => {
     fetch('/api/topics')
       .then(res => res.json())
@@ -95,12 +94,15 @@ const useApplicationData = () => {
     }
   }, [state.selectedTopic]);
 
+  // parse the similar photos data in the modal so they can be clickable and display their own similar photos
   useEffect(() => {
     if (state.displayModal) {
+      // map each similar photo and return each photo with the same id in our photos data (which has the similar_array)
       const parsedPhotos = state.selectedPhoto.similar_photos.map((similarPhoto) => {
         return state.photoData.find(photo => similarPhoto.id === photo.id);
       });
 
+      // updates similar_photos
       dispatch({ type: ACTIONS.PARSE_SIMILAR_PHOTO_DATA, payload: parsedPhotos });
     }
   }, [state.selectedPhoto.id]);
@@ -108,10 +110,10 @@ const useApplicationData = () => {
   return {
     state,
     selectPhoto,
-    toggleFavourite,
     selectTopic,
     openDisplayModal,
-    closeDisplayModal
+    closeDisplayModal,
+    toggleFavourite
   };
 };
 

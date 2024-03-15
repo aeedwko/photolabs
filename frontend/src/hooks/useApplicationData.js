@@ -1,35 +1,35 @@
 import { useEffect, useReducer } from 'react';
 
 export const ACTIONS = {
+  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
   SELECT_PHOTO: 'SELECT_PHOTO',
-  TOGGLE_PHOTO_DETAILS: 'TOGGLE_PHOTO_DETAILS',
-  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   GET_PHOTOS_BY_TOPICS: "GET_PHOTOS_BY_TOPICS",
   PARSE_SIMILAR_PHOTO_DATA: "PARSE_SIMILAR_PHOTO_DATA",
+  OPEN_PHOTO_DETAILS: 'OPEN_PHOTO_DETAILS',
   CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS'
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+  case ACTIONS.SET_PHOTO_DATA:
+    return { ...state, photoData: action.payload };
+  case ACTIONS.SET_TOPIC_DATA:
+    return { ...state, topicData: action.payload };
   case ACTIONS.FAV_PHOTO_ADDED:
     return { ...state, favourites: [...state.favourites, action.id] };
   case ACTIONS.FAV_PHOTO_REMOVED:
     return { ...state, favourites: state.favourites.filter(favId => favId !== action.id) };
   case ACTIONS.SELECT_PHOTO:
     return { ...state, selectedPhoto: action.photo };
-  case ACTIONS.TOGGLE_PHOTO_DETAILS:
-    return { ...state, displayModal: !state.displayModal };
-  case ACTIONS.SET_PHOTO_DATA:
-    return { ...state, photoData: action.payload };
-  case ACTIONS.SET_TOPIC_DATA:
-    return { ...state, topicData: action.payload };
   case ACTIONS.GET_PHOTOS_BY_TOPICS:
     return { ...state, selectedTopic: action.id };
   case ACTIONS.PARSE_SIMILAR_PHOTO_DATA:
     return { ...state, selectedPhoto: { ...state.selectedPhoto, "similar_photos": action.payload } };
+  case ACTIONS.OPEN_PHOTO_DETAILS:
+    return { ...state, displayModal: true };
   case ACTIONS.CLOSE_PHOTO_DETAILS:
     return { ...state, displayModal: false };
   default:
@@ -48,24 +48,16 @@ const useApplicationData = () => {
     photoData: [],
     topicData: [],
   });
-  
-  // when modal is true, isClickable is false???
-  // updates displayModal states
-  // don't toggle if modal is already true
-  const toggleDisplayModal = () => {
-    // if there is no display modal, then toggle it
-    if (!state.displayModal) {
-      dispatch({ type: ACTIONS.TOGGLE_PHOTO_DETAILS });
-    }
+
+  const openDisplayModal = () => {
+    dispatch({ type: ACTIONS.OPEN_PHOTO_DETAILS });
   };
 
   const closeDisplayModal = () => {
     dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS });
   };
 
-  const changeSelectedPhoto = (photo) => {
-    // if modal is NOT there (initial state)
-    // if modal is there,
+  const selectPhoto = (photo) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
   };
   
@@ -78,7 +70,7 @@ const useApplicationData = () => {
     }
   };
 
-  const changeTopic = (id) => {
+  const selectTopic = (id) => {
     dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, id });
   };
 
@@ -111,16 +103,14 @@ const useApplicationData = () => {
 
       dispatch({ type: ACTIONS.PARSE_SIMILAR_PHOTO_DATA, payload: parsedPhotos });
     }
-
-    console.log(state);
   }, [state.selectedPhoto.id]);
 
   return {
     state,
-    toggleDisplayModal,
-    changeSelectedPhoto,
+    selectPhoto,
     toggleFavourite,
-    changeTopic,
+    selectTopic,
+    openDisplayModal,
     closeDisplayModal
   };
 };

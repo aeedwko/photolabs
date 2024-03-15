@@ -2,10 +2,11 @@ import React from "react";
 
 import "../styles/TopicListItem.scss";
 
-const TopicListItem = ({ topic, changeTopic }) => {
-
+const TopicListItem = ({ topic, selectTopic }) => {
+  console.log(selectTopic);
   const handleClick = () => {
-    changeTopic(topic.id);
+    console.log(selectTopic);
+    selectTopic(topic.id);
   };
 
   return (

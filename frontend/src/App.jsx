@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
@@ -11,29 +11,30 @@ const App = () => {
 
   const {
     state,
-    toggleDisplayModal,
-    changeSelectedPhoto,
+    selectPhoto,
     toggleFavourite,
-    changeTopic,
+    selectTopic,
+    openDisplayModal,
     closeDisplayModal
   } = useApplicationData();
-
+  
   return (
     <div className="App">
       <HomeRoute
         photos={state.photoData}
         topics={state.topicData}
-        toggleDisplayModal={toggleDisplayModal}
+        openDisplayModal={openDisplayModal}
         favourites={state.favourites}
         toggleFavourite={toggleFavourite}
-        changeSelectedPhoto={changeSelectedPhoto} changeTopic={changeTopic} />
+        selectPhoto={selectPhoto}
+        selectTopic={selectTopic} />
       {state.displayModal && <PhotoDetailsModal
         photo={state.photoData}
-        toggleDisplayModal={toggleDisplayModal}
+        openDisplayModal={openDisplayModal}
         selectedPhoto={state.selectedPhoto}
         toggleFavourite={toggleFavourite}
         favourites={state.favourites}
-        changeSelectedPhoto={changeSelectedPhoto}
+        selectPhoto={selectPhoto}
         closeDisplayModal={closeDisplayModal} />}
     </div>
   );

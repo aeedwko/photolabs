@@ -10,7 +10,12 @@ const HomeRoute = ({ photos, topics, toggleDisplayModal, favourites, toggleFavou
   return (
     <div className="home-route">
       <TopNavigationBar topics={topics} favouritesExist={favourites.length > 0} changeTopic={changeTopic} />
-      <PhotoList photos={photos} favourites={favourites} toggleFavourite={toggleFavourite} toggleDisplayModal={toggleDisplayModal} changeSelectedPhoto={changeSelectedPhoto} />
+      <PhotoList
+        photos={photos}
+        favourites={favourites}
+        toggleFavourite={toggleFavourite}
+        toggleDisplayModal={toggleDisplayModal}
+        changeSelectedPhoto={changeSelectedPhoto} />
     </div>
   );
 };

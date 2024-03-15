@@ -14,15 +14,27 @@ const App = () => {
     toggleDisplayModal,
     changeSelectedPhoto,
     toggleFavourite,
-    changeTopic
+    changeTopic,
+    closeDisplayModal
   } = useApplicationData();
-
-  // dispatch({type: 'FAV_PHOTO_ADDED', value: id})
 
   return (
     <div className="App">
-      <HomeRoute photos={state.photoData} topics={state.topicData} toggleDisplayModal={toggleDisplayModal} favourites={state.favourites} toggleFavourite={toggleFavourite} changeSelectedPhoto={changeSelectedPhoto} changeTopic={changeTopic} />
-      {state.displayModal && <PhotoDetailsModal toggleDisplayModal={toggleDisplayModal} selectedPhoto={state.selectedPhoto} toggleFavourite={toggleFavourite} favourites={state.favourites} />}
+      <HomeRoute
+        photos={state.photoData}
+        topics={state.topicData}
+        toggleDisplayModal={toggleDisplayModal}
+        favourites={state.favourites}
+        toggleFavourite={toggleFavourite}
+        changeSelectedPhoto={changeSelectedPhoto} changeTopic={changeTopic} />
+      {state.displayModal && <PhotoDetailsModal
+        photo={state.photoData}
+        toggleDisplayModal={toggleDisplayModal}
+        selectedPhoto={state.selectedPhoto}
+        toggleFavourite={toggleFavourite}
+        favourites={state.favourites}
+        changeSelectedPhoto={changeSelectedPhoto}
+        closeDisplayModal={closeDisplayModal} />}
     </div>
   );
 };

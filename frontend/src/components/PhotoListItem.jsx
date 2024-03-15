@@ -10,7 +10,6 @@ const PhotoListItem = ({ photo, favourites, toggleFavourite, toggleDisplayModal,
     changeSelectedPhoto(photo);
   };
 
-  console.log(photo);
   return (
     <div className="photo-list__item">
       <PhotoFavButton photo={photo} favourites={favourites} toggleFavourite={toggleFavourite} />

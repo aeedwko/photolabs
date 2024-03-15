@@ -7,7 +7,9 @@ export const ACTIONS = {
   TOGGLE_PHOTO_DETAILS: 'TOGGLE_PHOTO_DETAILS',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  GET_PHOTOS_BY_TOPICS: "GET_PHOTO_BY_TOPICS"
+  GET_PHOTOS_BY_TOPICS: "GET_PHOTOS_BY_TOPICS",
+  PARSE_SIMILAR_PHOTO_DATA: "PARSE_SIMILAR_PHOTO_DATA",
+  CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS'
 };
 
 const reducer = (state, action) => {
@@ -26,6 +28,10 @@ const reducer = (state, action) => {
     return { ...state, topicData: action.payload };
   case ACTIONS.GET_PHOTOS_BY_TOPICS:
     return { ...state, selectedTopic: action.id };
+  case ACTIONS.PARSE_SIMILAR_PHOTO_DATA:
+    return { ...state, selectedPhoto: { ...state.selectedPhoto, "similar_photos": action.payload } };
+  case ACTIONS.CLOSE_PHOTO_DETAILS:
+    return { ...state, displayModal: false };
   default:
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
@@ -40,15 +46,26 @@ const useApplicationData = () => {
     selectedTopic: 0,
     favourites: [],
     photoData: [],
-    topicData: []
+    topicData: [],
   });
   
+  // when modal is true, isClickable is false???
   // updates displayModal states
+  // don't toggle if modal is already true
   const toggleDisplayModal = () => {
-    dispatch({ type: ACTIONS.TOGGLE_PHOTO_DETAILS });
+    // if there is no display modal, then toggle it
+    if (!state.displayModal) {
+      dispatch({ type: ACTIONS.TOGGLE_PHOTO_DETAILS });
+    }
+  };
+
+  const closeDisplayModal = () => {
+    dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS });
   };
 
   const changeSelectedPhoto = (photo) => {
+    // if modal is NOT there (initial state)
+    // if modal is there,
     dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
   };
   
@@ -86,12 +103,25 @@ const useApplicationData = () => {
     }
   }, [state.selectedTopic]);
 
+  useEffect(() => {
+    if (state.displayModal) {
+      const parsedPhotos = state.selectedPhoto.similar_photos.map((similarPhoto) => {
+        return state.photoData.find(photo => similarPhoto.id === photo.id);
+      });
+
+      dispatch({ type: ACTIONS.PARSE_SIMILAR_PHOTO_DATA, payload: parsedPhotos });
+    }
+
+    console.log(state);
+  }, [state.selectedPhoto.id]);
+
   return {
     state,
     toggleDisplayModal,
     changeSelectedPhoto,
     toggleFavourite,
-    changeTopic
+    changeTopic,
+    closeDisplayModal
   };
 };
 

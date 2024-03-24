@@ -29,7 +29,7 @@ const reducer = (state, action) => {
   case ACTIONS.FAV_PHOTO_ADDED:
     return { ...state, favourites: [...state.favourites, action.payload] };
   case ACTIONS.FAV_PHOTO_REMOVED:
-    return { ...state, favourites: state.favourites.filter(favId => favId !== action.payload) };
+    return { ...state, favourites: state.favourites.filter(favourite => favourite.id !== action.payload.id) };
   case ACTIONS.PARSE_SIMILAR_PHOTO_DATA:
     return { ...state, selectedPhoto: { ...state.selectedPhoto, "similar_photos": action.payload } };
   default:
@@ -66,9 +66,18 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: id });
   };
 
-  // if id is in favourites, then update favourites without that id
-  const toggleFavourite = (id) => {
-    state.favourites.includes(id) ? dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: id }) : dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: id });
+  // if photo is in favourites, then update favourites without that photo
+  const toggleFavourite = (photo) => {
+    if (state.favourites.find(favourite => favourite.id === photo.id)) {
+      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: photo });
+    } else {
+      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photo });
+    }
+  };
+
+  // display all favourited photos
+  const selectFavourites = () => {
+    dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: state.favourites });
   };
 
   // fetch data from photos
@@ -113,7 +122,8 @@ const useApplicationData = () => {
     selectTopic,
     openDisplayModal,
     closeDisplayModal,
-    toggleFavourite
+    toggleFavourite,
+    selectFavourites
   };
 };
 

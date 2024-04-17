@@ -1,6 +1,6 @@
 # Photolabs
 
-A React single-based application for viewing stock photos.
+A React single-paged application for viewing stock photos.
 
 !["Photolabs"](https://github.com/aeedwko/photolabs/blob/main/docs/photos-favourited.png)
 !["Photo details"](https://github.com/aeedwko/photolabs/blob/main/docs/photo-details.png)
